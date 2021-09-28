@@ -5,7 +5,7 @@ import Form from "../components/Form/Form";
 import Input from "../components/Input/Input";
 import InputWrapper from "../components/InputWrapper/InputWrapper";
 
-const SignupForm = () => {
+const LoginForm = () => {
   return (
     <Form>
       <InputWrapper label="Email" htmlFor="email" labelIcon={faEnvelope}>
@@ -16,17 +16,9 @@ const SignupForm = () => {
         <Input placeholder="***" type="password" />
       </InputWrapper>
 
-      <InputWrapper
-        label="Confirm Password"
-        htmlFor="confirmPassword"
-        labelIcon={faKey}
-      >
-        <Input placeholder="***" type="password" />
-      </InputWrapper>
-
-      <Buttons>Complete</Buttons>
+      <Buttons>Login</Buttons>
     </Form>
   );
 };
 
-export default SignupForm;
+export default LoginForm;

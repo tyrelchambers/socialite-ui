@@ -4,9 +4,10 @@ import { QueryClient, QueryClientProvider } from "react-query";
 import { BrowserRouter, Route, Switch } from "react-router-dom";
 import "./index.css";
 import Home from "./pages/Home/Home";
+import Login from "./pages/Login/Login";
 import Signup from "./pages/Signup/Signup";
 import reportWebVitals from "./reportWebVitals";
-import { HOME, SIGNUP } from "./routes/index.routes";
+import { HOME, LOGIN, SIGNUP } from "./routes/index.routes";
 
 const queryClient = new QueryClient();
 
@@ -17,6 +18,7 @@ ReactDOM.render(
         <Switch>
           <Route exact path={HOME} component={Home} />
           <Route exact path={SIGNUP} component={Signup} />
+          <Route exact path={LOGIN} component={Login} />
         </Switch>
       </BrowserRouter>
     </QueryClientProvider>

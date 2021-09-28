@@ -8,6 +8,7 @@
   --lighter-black: #292c3d;
   --white: #fff;
   --gray: #c2c2c2;
+  --inactive-gray: rgba(156, 163, 175);
 }
 
 body {
