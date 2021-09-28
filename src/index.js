@@ -1,10 +1,24 @@
 import React from "react";
 import ReactDOM from "react-dom";
+import { QueryClient, QueryClientProvider } from "react-query";
+import { BrowserRouter, Route, Switch } from "react-router-dom";
 import "./index.css";
+import Home from "./pages/Home/Home";
 import reportWebVitals from "./reportWebVitals";
+import { HOME } from "./routes/index.routes";
+
+const queryClient = new QueryClient();
 
 ReactDOM.render(
-  <React.StrictMode></React.StrictMode>,
+  <React.StrictMode>
+    <QueryClientProvider client={queryClient}>
+      <BrowserRouter>
+        <Switch>
+          <Route exact path={HOME} component={Home} />
+        </Switch>
+      </BrowserRouter>
+    </QueryClientProvider>
+  </React.StrictMode>,
   document.getElementById("root")
 );
 
