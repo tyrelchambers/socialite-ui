@@ -31,11 +31,7 @@ const Sidebar = () => {
         </NavItem>
 
         <Link to="/browse">
-          <NavItem
-            onClick={() => setTab("following")}
-            icon={faList}
-            active={currentTab === "following"}
-          >
+          <NavItem icon={faList}>
             <p>Browse</p>
           </NavItem>
         </Link>

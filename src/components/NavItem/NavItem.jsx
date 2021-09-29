@@ -22,7 +22,7 @@ const NavItem = ({ active, icon, ...props }) => {
   return (
     <StyledNavItem
       active={active}
-      className="flex items-center p-2 px-4 rounded-md"
+      className="flex items-center p-3 px-4 rounded-md"
       onClick={props.onClick}
     >
       <StyledIcon active={active}>
