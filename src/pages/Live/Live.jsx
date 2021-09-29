@@ -1,4 +1,5 @@
 import React from "react";
+import LiveView from "../../components/LiveView/LiveView";
 import Header from "../../layouts/Header/Header";
 import Wrapper from "../../layouts/Wrapper/Wrapper";
 
@@ -7,7 +8,9 @@ const Live = () => {
     <>
       <Header />
 
-      <Wrapper className="mt-10"></Wrapper>
+      <Wrapper className="mt-10">
+        <LiveView />
+      </Wrapper>
     </>
   );
 };
