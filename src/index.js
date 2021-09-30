@@ -5,16 +5,24 @@ import { BrowserRouter, Route, Switch } from "react-router-dom";
 import "./index.css";
 import Dashboard from "./pages/Dashboard/Dashboard";
 import Home from "./pages/Home/Home";
-import Live from "./pages/Live/Live";
+import LivePreview from "./pages/LivePreview/LivePreview";
 import Login from "./pages/Login/Login";
 import Signup from "./pages/Signup/Signup";
 import reportWebVitals from "./reportWebVitals";
-import { DASHBOARD, HOME, LIVE, LOGIN, SIGNUP } from "./routes/index.routes";
+import {
+  DASHBOARD,
+  HOME,
+  LIVE,
+  LIVE_PARTICIPANT,
+  LOGIN,
+  SIGNUP,
+} from "./routes/index.routes";
+import Live from "./pages/LivePreview/LivePreview";
 
 const queryClient = new QueryClient();
 
-ReactDOM.render(
-  <React.StrictMode>
+const App = () => {
+  return (
     <QueryClientProvider client={queryClient}>
       <BrowserRouter>
         <Switch>
@@ -22,10 +30,17 @@ ReactDOM.render(
           <Route exact path={SIGNUP} component={Signup} />
           <Route exact path={LOGIN} component={Login} />
           <Route exact path={DASHBOARD} component={Dashboard} />
-          <Route exact path={LIVE} component={Live} />
+          <Route exact path={LIVE} component={LivePreview} />
+          <Route exact path={LIVE_PARTICIPANT} component={Live} />
         </Switch>
       </BrowserRouter>
     </QueryClientProvider>
+  );
+};
+
+ReactDOM.render(
+  <React.StrictMode>
+    <App />
   </React.StrictMode>,
   document.getElementById("root")
 );
