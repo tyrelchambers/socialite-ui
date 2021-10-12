@@ -2,13 +2,13 @@ import { useState } from "react";
 
 export const useStream = () => {
   const [stream, setState] = useState({
-    title: "",
+    name: "",
     isLive: false,
     sid: "",
   });
 
-  const setTitle = (title) => {
-    setState({ ...stream, title });
+  const setName = (name) => {
+    setState({ ...stream, name });
   };
 
   const setStreamConfig = (config) => {
@@ -16,12 +16,12 @@ export const useStream = () => {
   };
 
   const reset = () => {
-    setState({ title: "", isLive: false, sid: "" });
+    setState({ name: "", isLive: false, sid: "" });
   };
 
   return {
     ...stream,
-    setTitle,
+    setName,
     stream,
     setStreamConfig,
     reset,

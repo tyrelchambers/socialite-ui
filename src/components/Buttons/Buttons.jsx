@@ -33,36 +33,39 @@ const StyledSecButton = styled(StyledButton)`
 
 const StyledDangerButton = styled(StyledButton)``;
 
-const mainButton = (props) => (
+const mainButton = ({ className, onClick, disabled, children, ...rest }) => (
   <StyledMainButton
     type="button"
-    className={`${props.className ?? ""}`}
-    onClick={props.onClick}
-    disabled={props.disabled}
+    className={`${className ?? ""}`}
+    onClick={onClick}
+    disabled={disabled}
+    {...rest}
   >
-    {props.children}
+    {children}
   </StyledMainButton>
 );
 
-const secButton = (props) => (
+const secButton = ({ className, onClick, disabled, children, ...rest }) => (
   <StyledSecButton
     type="button"
-    className={`${props.className ?? ""}`}
-    onClick={props.onClick}
-    disabled={props.disabled}
+    className={`${className ?? ""}`}
+    onClick={onClick}
+    disabled={disabled}
+    {...rest}
   >
-    {props.children}
+    {children}
   </StyledSecButton>
 );
 
-const danger = (props) => (
+const danger = ({ className, onClick, disabled, children, ...rest }) => (
   <StyledDangerButton
     type="button"
-    className={`bg-red-400 ${props.className ?? ""}`}
-    onClick={props.onClick}
-    disabled={props.disabled}
+    className={`bg-red-400 ${className ?? ""}`}
+    onClick={onClick}
+    disabled={disabled}
+    {...rest}
   >
-    {props.children}
+    {children}
   </StyledDangerButton>
 );
 

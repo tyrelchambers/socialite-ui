@@ -14,18 +14,29 @@ import LiveInfo from "../../layouts/LiveInfo/LiveInfo";
 import Wrapper from "../../layouts/Wrapper/Wrapper";
 import Webcam from "react-webcam";
 import Modal from "../../layouts/Modal/Modal";
+import { getAccessToken } from "../../api/getAccessToken";
+import { roomAdmin } from "../../constants/roomAdmin";
+import { useUser } from "../../hooks/useUser";
 
-const Live = () => {
+const LivePreview = () => {
   const { isOpen, setIsOpen, config, setOpts } = useModal();
-  const { title, setTitle, stream, setStreamConfig, reset } = useStream();
+  const { name, setName, stream, setStreamConfig, reset } = useStream();
   const history = useHistory();
+  const userQuery = useUser();
 
   const createRoomHandler = async () => {
-    if (!title || stream.isLive) return;
-    const room = await createRoom({ title });
+    if (!name || stream.isLive) return;
+    const room = await createRoom({ name });
 
-    history.push(`/live?sid=${room.sid}`);
+    const aToken = await getAccessToken(
+      roomAdmin({
+        room: room.name,
+        participantName: `${userQuery.data.firstName} ${userQuery.data.lastName}`,
+      })
+    );
+
     setStreamConfig({ ...room.data, isLive: true });
+    history.push(`/live/${room.sid}?token=${aToken}`);
   };
 
   const endStreamHandler = () => {
@@ -50,12 +61,12 @@ const Live = () => {
             placeholder="Stream title..."
             className="w-full mb-4 text-xl"
             light
-            onChange={(e) => setTitle(e.target.value)}
+            onChange={(e) => setName(e.target.value)}
           />
 
           <div className="flex items-center mb-10 gap-4">
             {!stream.isLive ? (
-              <Buttons disabled={!title} onClick={createRoomHandler}>
+              <Buttons disabled={!name} onClick={createRoomHandler}>
                 Create Room &amp; Go Live
               </Buttons>
             ) : (
@@ -108,4 +119,4 @@ const Live = () => {
   );
 };
 
-export default Live;
+export default LivePreview;

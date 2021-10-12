@@ -1,8 +1,8 @@
 const config = {
   development: {
-    backend: "http://localhost:4000/api",
+    backend: "http://192.168.1.20:4000/api",
     frontend: "http://localhost:3000",
-    streamServer: "ws://localhost:7880",
+    streamServer: "ws://192.168.1.20:7880",
   },
 };
 

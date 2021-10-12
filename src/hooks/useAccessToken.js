@@ -1,7 +1,11 @@
-import { useQuery } from "react-query";
-import { getAccessToken } from "../api/getAccessToken";
+import { useState } from "react";
 
-export const useAccessToken = (initialData) => {
-  const query = useQuery("accessToken", () => getAccessToken(initialData));
-  return query;
+export const useAccessToken = () => {
+  const [accessToken, setAccessToken] = useState();
+
+  const setToken = (token) => {
+    setAccessToken(token);
+  };
+
+  return { accessToken, setToken };
 };

@@ -4,11 +4,13 @@ import React from "react";
 import { Link } from "react-router-dom";
 import NavItem from "../../components/NavItem/NavItem";
 import { useGetCurrentTab } from "../../hooks/useGetCurrentTab";
+import { useUser } from "../../hooks/useUser";
 import Header from "../../layouts/Header/Header";
 import Wrapper from "../../layouts/Wrapper/Wrapper";
 
 const Dashboard = () => {
   const { currentTab, setTab } = useGetCurrentTab("home");
+  const userQuery = useUser();
 
   return (
     <>

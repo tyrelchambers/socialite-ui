@@ -5,6 +5,7 @@ import { BrowserRouter, Route, Switch } from "react-router-dom";
 import "./index.css";
 import Dashboard from "./pages/Dashboard/Dashboard";
 import Home from "./pages/Home/Home";
+import Live from "./pages/Live/Live";
 import LivePreview from "./pages/LivePreview/LivePreview";
 import Login from "./pages/Login/Login";
 import Signup from "./pages/Signup/Signup";
@@ -17,7 +18,6 @@ import {
   LOGIN,
   SIGNUP,
 } from "./routes/index.routes";
-import Live from "./pages/LivePreview/LivePreview";
 
 const queryClient = new QueryClient();
 
