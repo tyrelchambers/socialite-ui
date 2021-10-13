@@ -1,7 +1,7 @@
 import React from "react";
 import ReactDOM from "react-dom";
-import { QueryClient, QueryClientProvider } from "react-query";
-import { BrowserRouter, Route, Switch } from "react-router-dom";
+import { QueryClient, QueryClientProvider, useQueryClient } from "react-query";
+import { BrowserRouter, Route, Switch, Redirect } from "react-router-dom";
 import "./index.css";
 import Dashboard from "./pages/Dashboard/Dashboard";
 import Home from "./pages/Home/Home";
@@ -16,10 +16,19 @@ import {
   LIVE,
   LIVE_PARTICIPANT,
   LOGIN,
+  SIGNOUT,
   SIGNUP,
 } from "./routes/index.routes";
 
 const queryClient = new QueryClient();
+
+const SignOut = () => {
+  const queryClient = useQueryClient();
+  queryClient.invalidateQueries("currentUser");
+  window.localStorage.removeItem("token");
+  console.log("clicked");
+  return <Redirect to="/" />;
+};
 
 const App = () => {
   return (
@@ -32,6 +41,7 @@ const App = () => {
           <Route exact path={DASHBOARD} component={Dashboard} />
           <Route exact path={LIVE} component={LivePreview} />
           <Route exact path={LIVE_PARTICIPANT} component={Live} />
+          <Route exact path={SIGNOUT} component={SignOut} />
         </Switch>
       </BrowserRouter>
     </QueryClientProvider>

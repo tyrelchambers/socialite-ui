@@ -5,9 +5,9 @@ import Sidebar from "../../layouts/Sidebar/Sidebar";
 import Wrapper from "../../layouts/Wrapper/Wrapper";
 import { useRooms } from "../../hooks/useRooms";
 import RoomListItem from "../../components/RoomListItem/RoomListItem";
-import { getAccessToken } from "../../api/getAccessToken";
 import { useUser } from "../../hooks/useUser";
 import { useHistory } from "react-router";
+import { getJoinToken } from "../../api/getJoinToken";
 
 const Home = () => {
   const { currentTab } = useGetCurrentTab("for you");
@@ -16,10 +16,10 @@ const Home = () => {
   const history = useHistory();
 
   const joinHandler = async (roomId) => {
-    const accessToken = await getAccessToken({
-      roomJoin: true,
+    console.log(roomId);
+    const accessToken = await getJoinToken({
       room: roomId,
-      participantName: userQuery.data.uuid,
+      participantName: `${userQuery.data.firstName} ${userQuery.data.lastName}`,
     });
 
     history.push(`/live/${roomId}?token=${accessToken}`);
