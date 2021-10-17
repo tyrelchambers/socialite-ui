@@ -19,6 +19,7 @@ import {
 } from "livekit-client";
 import React from "react";
 import { LiveControl } from "../LiveControl/LiveControl";
+import Buttons from "../Buttons/Buttons";
 
 export const LiveControls = ({
   room,
@@ -26,6 +27,7 @@ export const LiveControls = ({
   enableAudio,
   enableVideo,
   onLeave,
+  isHost,
 }) => {
   const { publications, isAudioMuted, isVideoMuted, unpublishTrack } =
     useParticipant(room.localParticipant);
@@ -148,9 +150,11 @@ export const LiveControls = ({
 
   return (
     <div className="flex gap-6">
+      {console.log(isHost)}
       {muteButton}
       {videoButton}
       {screenButton}
+      {isHost && <Buttons variant="danger">End Stream</Buttons>}
       {onLeave && (
         <LiveControl
           label="End"
