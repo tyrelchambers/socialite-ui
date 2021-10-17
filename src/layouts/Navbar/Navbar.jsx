@@ -3,14 +3,14 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React from "react";
 import { Link } from "react-router-dom";
 import { StyledMainButton } from "../../components/Buttons/Buttons";
-import { LOGIN, SIGNOUT, SIGNUP } from "../../routes/index.routes";
+import { DASHBOARD, LOGIN, SIGNOUT, SIGNUP } from "../../routes/index.routes";
 import { useUser } from "../../hooks/useUser";
 
 const Navbar = () => {
   const userQuery = useUser();
 
   return (
-    <div className="flex items-center">
+    <div className="flex items-center gap-6">
       {!userQuery.data ? (
         <>
           <Link to={LOGIN} className="text-sm font-medium mr-6 text-gray-300">
@@ -24,7 +24,10 @@ const Navbar = () => {
           </Link>
         </>
       ) : (
-        <Link to={SIGNOUT}>Sign Out</Link>
+        <>
+          <Link to={DASHBOARD}>Dashboard</Link>
+          <Link to={SIGNOUT}>Sign Out</Link>
+        </>
       )}
     </div>
   );

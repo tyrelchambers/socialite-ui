@@ -15,28 +15,28 @@ import Wrapper from "../../layouts/Wrapper/Wrapper";
 import Webcam from "react-webcam";
 import Modal from "../../layouts/Modal/Modal";
 import { getAccessToken } from "../../api/getAccessToken";
-import { roomAdmin } from "../../constants/roomAdmin";
 import { useUser } from "../../hooks/useUser";
 
 const LivePreview = () => {
   const { isOpen, setIsOpen, config, setOpts } = useModal();
-  const { name, setName, stream, setStreamConfig, reset } = useStream();
+  const { name, setName, stream, reset } = useStream();
   const history = useHistory();
   const userQuery = useUser();
-
+  console.log(userQuery);
   const createRoomHandler = async () => {
-    if (!name || stream.isLive) return;
+    if (!name) return;
+
     const room = await createRoom({ name });
 
-    const aToken = await getAccessToken(
-      roomAdmin({
-        room: room.name,
-        participantName: `${userQuery.data.firstName} ${userQuery.data.lastName}`,
-      })
-    );
-
-    setStreamConfig({ ...room.data, isLive: true });
-    history.push(`/live/${room.sid}?token=${aToken}`);
+    const aToken = await getAccessToken({
+      name: room.uuid,
+      participantName: `${userQuery.data.firstName} ${userQuery.data.lastName}`,
+      participantMetadata: {
+        participantId: userQuery.data.uuid,
+      },
+    });
+    console.log(room);
+    history.push(`/live/${room.roomId}?token=${aToken}`);
   };
 
   const endStreamHandler = () => {

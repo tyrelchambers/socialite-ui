@@ -8,17 +8,19 @@ const StyledRoom = styled.div`
 
 const RoomListItem = ({ room, joinHandler, user }) => {
   return (
-    <StyledRoom className="p-3 rounded-lg shadow-lg">
+    <StyledRoom className="p-3 rounded-lg shadow-lg flex flex-col justify-between">
+      {/* {console.log(room)} */}
       <p>{room.name}</p>
-      {user && (
-        <Buttons
-          variant="secondary"
-          className="w-full mt-2"
-          onClick={joinHandler}
-        >
-          Join Room
-        </Buttons>
-      )}
+      <footer className="flex items-center justify-between">
+        <div>
+          <p>{room.maxParticipants}</p>
+        </div>
+        {user && (
+          <Buttons variant="primary" className=" mt-2" onClick={joinHandler}>
+            Join Room
+          </Buttons>
+        )}
+      </footer>
     </StyledRoom>
   );
 };

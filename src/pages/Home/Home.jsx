@@ -15,14 +15,18 @@ const Home = () => {
   const userQuery = useUser();
   const history = useHistory();
 
-  const joinHandler = async (roomId) => {
-    console.log(roomId);
+  const joinHandler = async (room) => {
+    console.log(room);
+
     const accessToken = await getJoinToken({
-      room: roomId,
+      room: room.uuid,
       participantName: `${userQuery.data.firstName} ${userQuery.data.lastName}`,
+      participantMetadata: {
+        participantId: userQuery.data.uuid,
+      },
     });
 
-    history.push(`/live/${roomId}?token=${accessToken}`);
+    history.push(`/live/${room.roomId}?token=${accessToken}`);
   };
 
   return (
@@ -37,7 +41,7 @@ const Home = () => {
               roomsQuery.data.map((room) => (
                 <RoomListItem
                   room={room}
-                  joinHandler={() => joinHandler(room.roomId)}
+                  joinHandler={() => joinHandler(room)}
                   user={userQuery.data}
                 />
               ))}
