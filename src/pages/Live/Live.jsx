@@ -26,8 +26,6 @@ const Live = ({ location }) => {
   const queryClient = useQueryClient();
   const userQuery = useUser();
 
-  console.log(roomQuery);
-
   useEffect(() => {
     return () => {
       queryClient.removeQueries("room");

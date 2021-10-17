@@ -150,7 +150,6 @@ export const LiveControls = ({
 
   return (
     <div className="flex gap-6">
-      {console.log(isHost)}
       {muteButton}
       {videoButton}
       {screenButton}

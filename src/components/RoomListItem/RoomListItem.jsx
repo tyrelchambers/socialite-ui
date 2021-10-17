@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 import Buttons from "../Buttons/Buttons";
-
+import Participants from "../../components/Participants/Participants";
 const StyledRoom = styled.div`
   background-color: var(--lighter-black);
 `;
@@ -9,14 +9,14 @@ const StyledRoom = styled.div`
 const RoomListItem = ({ room, joinHandler, user }) => {
   return (
     <StyledRoom className="p-3 rounded-lg shadow-lg flex flex-col justify-between">
-      {/* {console.log(room)} */}
+      {console.log(room)}
       <p>{room.name}</p>
-      <footer className="flex items-center justify-between">
+      <footer className="flex items-center justify-between mt-2">
         <div>
-          <p>{room.maxParticipants}</p>
+          <Participants participants={room.participants} />
         </div>
         {user && (
-          <Buttons variant="primary" className=" mt-2" onClick={joinHandler}>
+          <Buttons variant="primary" onClick={joinHandler}>
             Join Room
           </Buttons>
         )}
