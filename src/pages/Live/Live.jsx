@@ -22,7 +22,7 @@ const Live = ({ location }) => {
   const params = new URLSearchParams(location.search);
   const token = params.get("token");
   const { sid } = useParams();
-  const roomQuery = useLiveRoom(sid);
+  const { query: roomQuery, endStream } = useLiveRoom(sid);
   const queryClient = useQueryClient();
   const userQuery = useUser();
 
@@ -33,6 +33,10 @@ const Live = ({ location }) => {
   }, []);
 
   if (userQuery.isLoading || roomQuery.isLoading) return null;
+
+  const endStreamHandler = (room) => {
+    endStream.mutate(room);
+  };
 
   return (
     <div>
@@ -47,6 +51,7 @@ const Live = ({ location }) => {
               <LiveControls
                 {...props}
                 isHost={roomQuery.data.host === userQuery.data.uuid}
+                endStream={() => endStreamHandler(roomQuery.data)}
               />
             )}
           />

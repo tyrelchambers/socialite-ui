@@ -7,9 +7,13 @@ const StyledP = styled.p`
   color: var(--safety-yellow);
 `;
 
-const Participants = ({ participants }) => {
+const Participants = ({ participants, className }) => {
   return (
-    <StyledP className="bg-gray-700 py-1 px-4 rounded-full text-yellow-500">
+    <StyledP
+      className={`bg-gray-700 py-1 px-4 rounded-full text-yellow-500 ${
+        className ? className : ""
+      }`}
+    >
       <FontAwesomeIcon icon={faUserFriends} size="sm" className=" mr-2" />{" "}
       {participants.length}
     </StyledP>

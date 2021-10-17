@@ -28,6 +28,7 @@ export const LiveControls = ({
   enableVideo,
   onLeave,
   isHost,
+  endStream,
 }) => {
   const { publications, isAudioMuted, isVideoMuted, unpublishTrack } =
     useParticipant(room.localParticipant);
@@ -153,7 +154,11 @@ export const LiveControls = ({
       {muteButton}
       {videoButton}
       {screenButton}
-      {isHost && <Buttons variant="danger">End Stream</Buttons>}
+      {isHost && (
+        <Buttons variant="danger" onClick={endStream}>
+          End Stream
+        </Buttons>
+      )}
       {onLeave && (
         <LiveControl
           label="End"

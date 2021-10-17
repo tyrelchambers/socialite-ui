@@ -6,7 +6,7 @@ export const useUser = () => {
   const query = useQuery("currentUser", getUser, {
     enabled: !!token,
     onError: (err) => {
-      if (err.response.data.error === "USER_NOT_FOUND") {
+      if (err?.response.data.error === "USER_NOT_FOUND") {
         window.localStorage.removeItem("token");
       }
     },

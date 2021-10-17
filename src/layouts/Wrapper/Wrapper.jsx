@@ -1,14 +1,17 @@
 import React from "react";
+import styled from "styled-components";
+
+const StyledWrapper = styled.section`
+  max-width: 2000px;
+`;
 
 const Wrapper = (props) => {
   return (
-    <section
-      className={`max-w-screen-xl ml-auto mr-auto w-full ${
-        props.className ?? ""
-      }`}
+    <StyledWrapper
+      className={`p-4  ml-auto mr-auto w-full ${props.className ?? ""}`}
     >
       {props.children}
-    </section>
+    </StyledWrapper>
   );
 };
 

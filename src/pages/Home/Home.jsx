@@ -8,6 +8,7 @@ import RoomListItem from "../../components/RoomListItem/RoomListItem";
 import { useUser } from "../../hooks/useUser";
 import { useHistory } from "react-router";
 import { getJoinToken } from "../../api/getJoinToken";
+import Grid from "../../layouts/Grid/Grid";
 
 const Home = () => {
   const { currentTab } = useGetCurrentTab("for you");
@@ -16,8 +17,6 @@ const Home = () => {
   const history = useHistory();
 
   const joinHandler = async (room) => {
-    console.log(room);
-
     const accessToken = await getJoinToken({
       room: room.uuid,
       participantName: `${userQuery.data.firstName} ${userQuery.data.lastName}`,
@@ -36,16 +35,18 @@ const Home = () => {
       <Wrapper className="mt-6">
         <div className="flex gap-6 w-full">
           <Sidebar />
-          <div className="grid grid-cols-3 w-full gap-4">
+          <Grid>
             {roomsQuery.data &&
-              roomsQuery.data.map((room) => (
-                <RoomListItem
-                  room={room}
-                  joinHandler={() => joinHandler(room)}
-                  user={userQuery.data}
-                />
-              ))}
-          </div>
+              roomsQuery.data
+                .filter((room) => !room.isFinished)
+                .map((room) => (
+                  <RoomListItem
+                    room={room}
+                    joinHandler={() => joinHandler(room)}
+                    user={userQuery.data}
+                  />
+                ))}
+          </Grid>
         </div>
       </Wrapper>
     </div>
