@@ -1,6 +1,7 @@
+import { faCircle } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React from "react";
 import styled from "styled-components";
-import Participants from "../../components/Participants/Participants";
 import { fullName } from "../../utils/fullName";
 const StyledRoom = styled.div`
   background-color: var(--lighter-black);
@@ -37,10 +38,14 @@ const RoomListItem = ({ room, joinHandler, user }) => {
           alt=""
           className="object-cover z-{1}"
         />
-        <Participants
-          participants={room.participants}
-          className="absolute bottom-2 right-4 shadow-lg z-10"
-        />
+        {!room.isFinished && (
+          <div className="absolute top-2 left-2 z-10 flex items-center gap-2 bg-white py-1 px-3 rounded-full shadow-md">
+            <FontAwesomeIcon icon={faCircle} className="text-red-500 text-xs" />
+            <p className="text-red-500">
+              {room.participants && room.participants.length}
+            </p>
+          </div>
+        )}
         <div className="faded-bg"></div>
       </div>
       <div className="p-3 relative">

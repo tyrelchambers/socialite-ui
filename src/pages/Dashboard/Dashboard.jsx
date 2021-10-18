@@ -1,4 +1,9 @@
-import { faCircle, faHome } from "@fortawesome/free-solid-svg-icons";
+import {
+  faCircle,
+  faHistory,
+  faHome,
+  faUser,
+} from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React from "react";
 import { Link } from "react-router-dom";
@@ -7,6 +12,7 @@ import { useGetCurrentTab } from "../../hooks/useGetCurrentTab";
 import { useUser } from "../../hooks/useUser";
 import Header from "../../layouts/Header/Header";
 import Wrapper from "../../layouts/Wrapper/Wrapper";
+import StreamHistory from "../StreamHistory/StreamHistory";
 
 const Dashboard = () => {
   const { currentTab, setTab } = useGetCurrentTab("home");
@@ -18,11 +24,7 @@ const Dashboard = () => {
     <>
       <Header />
 
-      <Wrapper className="mt-10">
-        <p className="text-4xl mb-10">
-          Hey there, {userQuery.data?.firstName}!
-        </p>
-
+      <Wrapper className="mt-4">
         <div className="flex gap-6">
           <aside className="w-80 flex flex-col gap-4">
             <Link to="/dashboard/live">
@@ -42,8 +44,25 @@ const Dashboard = () => {
             >
               <p>Dashboard</p>
             </NavItem>
+            <NavItem
+              icon={faHistory}
+              active={currentTab === "history"}
+              onClick={() => setTab("history")}
+            >
+              <p>Past Streams</p>
+            </NavItem>
+            <NavItem
+              icon={faUser}
+              active={currentTab === "profile"}
+              onClick={() => setTab("profile")}
+            >
+              <p>Profile</p>
+            </NavItem>
           </aside>
-          <section></section>
+          <section>
+            {currentTab === "home" && null}
+            {currentTab === "history" && <StreamHistory />}
+          </section>
         </div>
       </Wrapper>
     </>

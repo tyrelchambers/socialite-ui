@@ -41,6 +41,7 @@ const Home = () => {
                 .filter((room) => !room.isFinished)
                 .map((room) => (
                   <RoomListItem
+                    key={room.roomId}
                     room={room}
                     joinHandler={() => joinHandler(room)}
                     user={userQuery.data}

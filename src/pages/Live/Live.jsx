@@ -41,7 +41,7 @@ const Live = ({ location }) => {
   return (
     <div>
       <Header />
-      <Wrapper>
+      <Wrapper narrow>
         <section className="mt-4">
           <LiveKitRoom
             url={url}
