@@ -1,80 +1,101 @@
-import { faCircle, faCog, faInfo } from "@fortawesome/free-solid-svg-icons";
+import { faCog, faTable } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import React from "react";
+import React, { useState } from "react";
 import { useHistory } from "react-router";
 import { createRoom } from "../../api/createRoom";
-import { deleteRoom } from "../../api/deleteRoom";
 import Buttons from "../../components/Buttons/Buttons";
 import Input from "../../components/Input/Input";
 import LiveSettings from "../../components/LiveSettings/LiveSettings";
 import { useModal } from "../../hooks/useModal";
-import { useStream } from "../../hooks/useStream";
 import Header from "../../layouts/Header/Header";
-import LiveInfo from "../../layouts/LiveInfo/LiveInfo";
 import Wrapper from "../../layouts/Wrapper/Wrapper";
 import Webcam from "react-webcam";
 import Modal from "../../layouts/Modal/Modal";
 import { getAccessToken } from "../../api/getAccessToken";
 import { useUser } from "../../hooks/useUser";
+import InputWrapper from "../../components/InputWrapper/InputWrapper";
+import { useTags } from "../../hooks/useTags";
+import Select from "../../components/Select/Select";
 
 const LivePreview = () => {
   const { isOpen, setIsOpen, config, setOpts } = useModal();
-  const { name, setName, stream, reset } = useStream();
+  const [state, setState] = useState({
+    name: "",
+    tags: [],
+  });
+  const tagsQuery = useTags();
   const history = useHistory();
   const userQuery = useUser();
-  console.log(userQuery);
+  console.log(tagsQuery);
+
   const createRoomHandler = async () => {
+    const { name, tags } = state;
     if (!name) return;
 
-    const room = await createRoom({ name });
+    // const room = await createRoom({ name, tags });
 
-    const aToken = await getAccessToken({
-      name: room.uuid,
-      participantName: `${userQuery.data.firstName} ${userQuery.data.lastName}`,
-      participantMetadata: {
-        participantId: userQuery.data.uuid,
-      },
-    });
-    console.log(room);
-    history.push(`/live/${room.roomId}?token=${aToken}`);
+    // const aToken = await getAccessToken({
+    //   name: room.uuid,
+    //   participantName: `${userQuery.data.firstName} ${userQuery.data.lastName}`,
+    //   participantMetadata: {
+    //     participantId: userQuery.data.uuid,
+    //   },
+    // });
+
+    // history.push(`/live/${room.roomId}?token=${aToken}`);
   };
 
-  const endStreamHandler = () => {
-    deleteRoom(stream.sid);
-    reset();
+  const formattedTags =
+    tagsQuery.data &&
+    tagsQuery.data.map((tag) => ({ value: tag.tag, label: tag.tag, ...tag }));
+
+  const inputHandler = (e) => {
+    setState({ ...state, [e.target.name]: e.target.value });
   };
+
   return (
     <>
       <Header />
 
-      <Wrapper className="mt-10">
-        <div className="w-full">
-          <h1 className="text-3xl font-bold mb-4 flex items-center">
-            Live Studio{" "}
-            {stream.isLive && (
-              <span className="bg-red-500 text-gray-800 px-2 rounded-full text-sm flex items-center gap-2 ml-6">
-                <FontAwesomeIcon icon={faCircle} size="xs" /> Live
-              </span>
-            )}
-          </h1>
-          <Input
-            placeholder="Stream title..."
-            className="w-full mb-4 text-xl"
-            light
-            onChange={(e) => setName(e.target.value)}
-          />
+      <Wrapper narrow>
+        <h1 className="text-3xl font-bold mb-4 flex items-center">
+          Live Studio
+        </h1>
+        <div className="w-full flex gap-6">
+          <div className="flex flex-col w-1/2">
+            <div className="flex flex-col gap-4 ">
+              <InputWrapper label="Stream title">
+                <Input
+                  placeholder="Stream title..."
+                  className=" text-xl h-10"
+                  light
+                  onChange={(e) => inputHandler(e)}
+                  value={state.name}
+                  name="name"
+                />
+              </InputWrapper>
+              <InputWrapper label="Tags">
+                <Select
+                  options={tagsQuery.data ? formattedTags : []}
+                  isMulti
+                  onChange={(e) => setState({ ...state, tags: e })}
+                  className="mt-2 mb-4"
+                />
+                {/* <Input
+                  placeholder="#css, #js, #react"
+                  className=" mb-4 text-xl h-10 w-full"
+                  light
+                  onChange={(e) => inputHandler(e)}
+                  value={state.tags}
+                  name="tags"
+                /> */}
+              </InputWrapper>
+            </div>
 
-          <div className="flex items-center mb-10 gap-4">
-            {!stream.isLive ? (
-              <Buttons disabled={!name} onClick={createRoomHandler}>
+            <div className="flex items-center mb-10  gap-4">
+              <Buttons disabled={!state.name} onClick={createRoomHandler}>
                 Create Room &amp; Go Live
               </Buttons>
-            ) : (
-              <Buttons variant="danger" onClick={endStreamHandler}>
-                End stream
-              </Buttons>
-            )}
-            {!stream.isLive && (
               <FontAwesomeIcon
                 icon={faCog}
                 className="text-gray-300 cursor-pointer"
@@ -86,27 +107,15 @@ const LivePreview = () => {
                   setIsOpen(true);
                 }}
               />
-            )}
-            {stream.isLive && (
-              <FontAwesomeIcon
-                icon={faInfo}
-                className="text-gray-300 cursor-pointer"
-                onClick={() => {
-                  setOpts({
-                    header: "Stream Information",
-                    children: <LiveInfo data={stream} />,
-                  });
-                  setIsOpen(true);
-                }}
-              />
-            )}
+            </div>
           </div>
-          <p className="font-thin  mb-4">
-            Here we can make sure your video is working correctly before we go
-            live.
-          </p>
-          <Webcam className="rounded-md" />
-
+          <div className="flex flex-col w-1/2">
+            <p className="font-thin  mb-4">
+              Here we can make sure your video is working correctly before we go
+              live.
+            </p>
+            <Webcam className="rounded-md" />
+          </div>
           <Modal
             isShowing={isOpen}
             hide={() => setIsOpen(false)}

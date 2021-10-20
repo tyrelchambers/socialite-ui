@@ -12,6 +12,8 @@ import { useGetCurrentTab } from "../../hooks/useGetCurrentTab";
 import { useUser } from "../../hooks/useUser";
 import Header from "../../layouts/Header/Header";
 import Wrapper from "../../layouts/Wrapper/Wrapper";
+import DashboardHome from "../DashboardHome/DashboardHome";
+import Profile from "../Profile/Profile";
 import StreamHistory from "../StreamHistory/StreamHistory";
 
 const Dashboard = () => {
@@ -60,8 +62,9 @@ const Dashboard = () => {
             </NavItem>
           </aside>
           <section>
-            {currentTab === "home" && null}
+            {currentTab === "home" && <DashboardHome />}
             {currentTab === "history" && <StreamHistory />}
+            {currentTab === "profile" && <Profile />}
           </section>
         </div>
       </Wrapper>
