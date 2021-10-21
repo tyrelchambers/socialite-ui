@@ -21,6 +21,10 @@ const styles = {
       color: "var(--raisin-black)",
     },
   }),
+  multiValue: (provided) => ({
+    ...provided,
+    backgroundColor: "var(--safety-yellow)",
+  }),
 };
 
 const Select = ({ options, onChange, className, ...rest }) => {

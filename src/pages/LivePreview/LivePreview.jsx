@@ -32,17 +32,17 @@ const LivePreview = () => {
     const { name, tags } = state;
     if (!name) return;
 
-    // const room = await createRoom({ name, tags });
+    const room = await createRoom({ name, tags });
 
-    // const aToken = await getAccessToken({
-    //   name: room.uuid,
-    //   participantName: `${userQuery.data.firstName} ${userQuery.data.lastName}`,
-    //   participantMetadata: {
-    //     participantId: userQuery.data.uuid,
-    //   },
-    // });
+    const aToken = await getAccessToken({
+      name: room.uuid,
+      participantName: `${userQuery.data.firstName} ${userQuery.data.lastName}`,
+      participantMetadata: {
+        participantId: userQuery.data.uuid,
+      },
+    });
 
-    // history.push(`/live/${room.roomId}?token=${aToken}`);
+    history.push(`/live/${room.roomId}?token=${aToken}`);
   };
 
   const formattedTags =
