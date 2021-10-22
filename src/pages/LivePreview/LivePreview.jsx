@@ -26,7 +26,6 @@ const LivePreview = () => {
   const tagsQuery = useTags();
   const history = useHistory();
   const userQuery = useUser();
-  console.log(tagsQuery);
 
   const createRoomHandler = async () => {
     const { name, tags } = state;
@@ -41,6 +40,7 @@ const LivePreview = () => {
         participantId: userQuery.data.uuid,
       },
     });
+    console.log(aToken);
 
     history.push(`/live/${room.roomId}?token=${aToken}`);
   };

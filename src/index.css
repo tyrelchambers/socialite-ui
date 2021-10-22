@@ -39,3 +39,11 @@ code {
   font-weight: 700;
   color: var(--white);
 }
+
+.bg-safety-yellow {
+  background-color: var(--safety-yellow);
+}
+
+.text-safety-yellow {
+  color: var(--safety-yellow);
+}

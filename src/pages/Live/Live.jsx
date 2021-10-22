@@ -66,6 +66,11 @@ const Live = ({ location }) => {
             <div className="flex flex-col flex-1">
               <p className="text-gray-300">{fullName(roomQuery.data.User)}</p>
               <h1 className="text-2xl">{roomQuery.data.name}</h1>
+              <div className="flex gap-4">
+                {roomQuery.data.roomTags.map((tag) => (
+                  <p className="text-safety-yellow">#{tag.tag}</p>
+                ))}
+              </div>
             </div>
 
             <div className="flex gap-6 items-center">
