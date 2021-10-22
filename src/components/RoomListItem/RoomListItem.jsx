@@ -56,16 +56,18 @@ const RoomListItem = ({ room, joinHandler, user }) => {
             className="w-10 h-10 rounded-full object-cover border-2 border-white shadow-lg"
           />
           <div className="flex flex-col">
+            <p className="text-gray-400 text-sm mt-1">{fullName(room.User)}</p>
             <p title={room.name} className="truncate w-56">
               {room.name}
             </p>
-            <p className="text-gray-400 text-sm mt-1">{fullName(room.User)}</p>
           </div>
         </div>
         <footer className="flex items-center mt-4 gap-2">
-          {["css", "js", "html"].map((tag) => (
-            <p className="tag text-xs">#{tag}</p>
-          ))}
+          <div className="flex gap-4">
+            {room.roomTags.map((tag) => (
+              <p className="text-safety-yellow text-xs">#{tag.tag}</p>
+            ))}
+          </div>
         </footer>
       </div>
     </StyledRoom>

@@ -16,6 +16,7 @@ import Participants from "../../components/Participants/Participants";
 import Buttons from "../../components/Buttons/Buttons";
 import { useQueryClient } from "react-query";
 import { useUser } from "../../hooks/useUser";
+import StageRenderer from "../../components/StageRenderer/StageRenderer";
 
 const Live = ({ location }) => {
   const url = config[process.env.NODE_ENV].streamServer;
@@ -54,6 +55,7 @@ const Live = ({ location }) => {
                 endStream={() => endStreamHandler(roomQuery.data)}
               />
             )}
+            stageRenderer={(props) => <StageRenderer {...props} />}
           />
         </section>
         {roomQuery.data && (

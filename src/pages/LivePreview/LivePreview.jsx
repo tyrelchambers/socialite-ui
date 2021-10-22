@@ -81,14 +81,6 @@ const LivePreview = () => {
                   onChange={(e) => setState({ ...state, tags: e })}
                   className="mt-2 mb-4"
                 />
-                {/* <Input
-                  placeholder="#css, #js, #react"
-                  className=" mb-4 text-xl h-10 w-full"
-                  light
-                  onChange={(e) => inputHandler(e)}
-                  value={state.tags}
-                  name="tags"
-                /> */}
               </InputWrapper>
             </div>
 
