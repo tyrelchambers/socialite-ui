@@ -36,7 +36,7 @@ const Live = ({ location }) => {
   if (userQuery.isLoading || roomQuery.isLoading) return null;
 
   const endStreamHandler = (room) => {
-    endStream.mutate(room);
+    endStream.mutate({ uuid: room.uuid });
   };
 
   return (

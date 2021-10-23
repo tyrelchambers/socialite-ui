@@ -22,6 +22,7 @@ const StreamHistory = () => {
 
     history.push(`/live/${room.roomId}?token=${accessToken}`);
   };
+
   return (
     <>
       <h1 className="text-3xl">Stream History</h1>
@@ -33,6 +34,7 @@ const StreamHistory = () => {
               room={room}
               joinHandler={() => joinHandler(room)}
               user={userQuery.data}
+              menuToggle
             />
           ))}
       </Grid>

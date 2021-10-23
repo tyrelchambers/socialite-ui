@@ -38,10 +38,10 @@ const Home = () => {
           <Grid>
             {roomsQuery.data &&
               roomsQuery.data
-                .filter((room) => !room.isFinished)
+                .filter((room) => !room.isFinished && room.isFinished !== null)
                 .map((room) => (
                   <RoomListItem
-                    key={room.roomId}
+                    key={room.uuid}
                     room={room}
                     joinHandler={() => joinHandler(room)}
                     user={userQuery.data}

@@ -26,7 +26,6 @@ const SignOut = () => {
   const queryClient = useQueryClient();
   queryClient.invalidateQueries("currentUser");
   window.localStorage.removeItem("token");
-  console.log("clicked");
   return <Redirect to="/" />;
 };
 
