@@ -5,11 +5,13 @@ import RoomListItem from "../../components/RoomListItem/RoomListItem";
 import { useHistory } from "react-router";
 import { useUser } from "../../hooks/useUser";
 import { getJoinToken } from "../../api/getJoinToken";
+import { useLiveRoom } from "../../hooks/useLiveRoom";
 
 const StreamHistory = () => {
   const { streamHistory } = useStreamHistory();
   const userQuery = useUser();
   const history = useHistory();
+  const { update } = useLiveRoom();
 
   const joinHandler = async (room) => {
     const accessToken = await getJoinToken({
@@ -18,6 +20,11 @@ const StreamHistory = () => {
       participantMetadata: {
         participantId: userQuery.data.uuid,
       },
+    });
+
+    update.mutate({
+      isFinished: false,
+      uuid: room.uuid,
     });
 
     history.push(`/live/${room.roomId}?token=${accessToken}`);

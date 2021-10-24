@@ -17,16 +17,17 @@ import Buttons from "../../components/Buttons/Buttons";
 import { useQueryClient } from "react-query";
 import { useUser } from "../../hooks/useUser";
 import StageRenderer from "../../components/StageRenderer/StageRenderer";
+import { useHistory } from "react-router-dom";
 
 const Live = ({ location }) => {
   const url = config[process.env.NODE_ENV].streamServer;
   const params = new URLSearchParams(location.search);
   const token = params.get("token");
   const { sid } = useParams();
-  const { query: roomQuery, endStream } = useLiveRoom(sid);
+  const { query: roomQuery, update } = useLiveRoom(sid);
   const queryClient = useQueryClient();
   const userQuery = useUser();
-
+  const history = useHistory();
   useEffect(() => {
     return () => {
       queryClient.removeQueries("room");
@@ -35,8 +36,9 @@ const Live = ({ location }) => {
 
   if (userQuery.isLoading || roomQuery.isLoading) return null;
 
-  const endStreamHandler = (room) => {
-    endStream.mutate({ uuid: room.uuid });
+  const updateHandler = async (room) => {
+    await update.mutateAsync({ uuid: room.uuid, isFinished: true });
+    history.push("/");
   };
 
   return (
@@ -52,7 +54,7 @@ const Live = ({ location }) => {
               <LiveControls
                 {...props}
                 isHost={roomQuery.data.host === userQuery.data.uuid}
-                endStream={() => endStreamHandler(roomQuery.data)}
+                endStream={() => updateHandler(roomQuery.data)}
               />
             )}
             stageRenderer={(props) => <StageRenderer {...props} />}

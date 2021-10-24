@@ -8,9 +8,12 @@ const StyledGridContainer = styled.div`
   grid-template-columns: 1fr 1fr 300px;
   grid-template-rows: 1fr 1fr;
   gap: 1em;
-  grid-template-areas:
-    "main main participants"
-    "main main participants";
+  grid-template-areas: ${(props) =>
+    props.wide
+      ? `"main main main"
+    "main main main"`
+      : `"main main participants"
+    "main main participants"`};
 `;
 const StyledGridStage = styled.div`
   grid-area: main;
@@ -22,14 +25,6 @@ const StyledGridParticipants = styled.div`
 const Desktop = ({ roomState, controlRenderer, onLeave, adaptiveVideo }) => {
   const { isConnecting, room, error, participants } = roomState;
   const [showOverlay, setShowOverlay] = useState(false);
-
-  // useEffect(() => {
-  //   return () => {
-  //     room.disconnect();
-  //   };
-  // }, []);
-
-  console.log(roomState);
 
   if (error) {
     return <div>error {error.message}</div>;
@@ -83,30 +78,35 @@ const Desktop = ({ roomState, controlRenderer, onLeave, adaptiveVideo }) => {
 
   return (
     <div>
-      <StyledGridContainer className="grid">
+      <StyledGridContainer
+        wide={otherParticipants.length === 0}
+        className="grid"
+      >
         <StyledGridStage>{mainView}</StyledGridStage>
-        <StyledGridParticipants>
-          {otherParticipants.map((participant, i) => {
-            let quality = VideoQuality.HIGH;
-            if (adaptiveVideo && i > 4) {
-              quality = VideoQuality.LOW;
-            }
-            return (
-              <ParticipantView
-                key={participant.identity}
-                participant={participant}
-                width="100%"
-                aspectWidth={16}
-                aspectHeight={9}
-                showOverlay={showOverlay}
-                quality={quality}
-                onMouseEnter={() => setShowOverlay(true)}
-                onMouseLeave={() => setShowOverlay(false)}
-                adaptiveVideo={adaptiveVideo}
-              />
-            );
-          })}
-        </StyledGridParticipants>
+        {otherParticipants.length > 0 && (
+          <StyledGridParticipants>
+            {otherParticipants.map((participant, i) => {
+              let quality = VideoQuality.HIGH;
+              if (adaptiveVideo && i > 4) {
+                quality = VideoQuality.LOW;
+              }
+              return (
+                <ParticipantView
+                  key={participant.identity}
+                  participant={participant}
+                  width="100%"
+                  aspectWidth={16}
+                  aspectHeight={9}
+                  showOverlay={showOverlay}
+                  quality={quality}
+                  onMouseEnter={() => setShowOverlay(true)}
+                  onMouseLeave={() => setShowOverlay(false)}
+                  adaptiveVideo={adaptiveVideo}
+                />
+              );
+            })}
+          </StyledGridParticipants>
+        )}
       </StyledGridContainer>
       <div className="flex justify-center mt-6">
         <ControlRenderer room={room} onLeave={onLeave} />
