@@ -7,6 +7,7 @@ import {
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React from "react";
 import { Link } from "react-router-dom";
+import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
 import NavItem from "../../components/NavItem/NavItem";
 import { useGetCurrentTab } from "../../hooks/useGetCurrentTab";
 import { useUser } from "../../hooks/useUser";
@@ -17,10 +18,16 @@ import Profile from "../Profile/Profile";
 import StreamHistory from "../StreamHistory/StreamHistory";
 
 const Dashboard = () => {
-  const { currentTab, setTab } = useGetCurrentTab("home");
+  const url = new URLSearchParams(useHistory().location.search);
+  const { currentTab, setTab } = useGetCurrentTab(url.get("tab"));
   const userQuery = useUser();
-
+  const history = useHistory();
   if (userQuery.isSuccess && !userQuery.data) return null;
+
+  const linkHandler = (tab) => {
+    setTab(tab);
+    history.push(`/dashboard?tab=${tab}`);
+  };
 
   return (
     <>
@@ -40,7 +47,7 @@ const Dashboard = () => {
               </div>
             </Link>
             <NavItem
-              onClick={() => setTab("home")}
+              onClick={() => linkHandler("home")}
               icon={faHome}
               active={currentTab === "home"}
             >
@@ -49,14 +56,14 @@ const Dashboard = () => {
             <NavItem
               icon={faHistory}
               active={currentTab === "history"}
-              onClick={() => setTab("history")}
+              onClick={() => linkHandler("history")}
             >
               <p>Past Streams</p>
             </NavItem>
             <NavItem
               icon={faUser}
               active={currentTab === "profile"}
-              onClick={() => setTab("profile")}
+              onClick={() => linkHandler("profile")}
             >
               <p>Profile</p>
             </NavItem>
