@@ -44,7 +44,6 @@ const Live = ({ location }) => {
 
   return (
     <div>
-      <Header />
       <Wrapper narrow>
         <section className="mt-4">
           <LiveKitRoom

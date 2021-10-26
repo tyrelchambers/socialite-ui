@@ -2,6 +2,7 @@ import {
   faDesktop,
   faMicrophone,
   faMicrophoneSlash,
+  faPhoneSlash,
   faStop,
   faVideo,
   faVideoSlash,
@@ -20,6 +21,7 @@ import {
 import React from "react";
 import { LiveControl } from "../LiveControl/LiveControl";
 import Buttons from "../Buttons/Buttons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 export const LiveControls = ({
   room,
@@ -155,8 +157,13 @@ export const LiveControls = ({
       {videoButton}
       {screenButton}
       {isHost && (
-        <Buttons rounded variant="danger" onClick={endStream}>
-          End Stream
+        <Buttons
+          rounded
+          variant="danger"
+          onClick={endStream}
+          title="End Stream"
+        >
+          <FontAwesomeIcon icon={faPhoneSlash} />
         </Buttons>
       )}
       {onLeave && (

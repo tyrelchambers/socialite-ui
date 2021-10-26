@@ -7,7 +7,8 @@ import styled from "styled-components";
 const StyledButton = styled.button`
   background-color: var(--lighter-black);
   color: var(--white);
-  padding: 0.5em 1.5em;
+  width: 45px;
+  height: 45px;
   border-radius: 999px;
 `;
 
@@ -61,9 +62,8 @@ export const LiveControl = ({
   return (
     <Popover isOpen={menuVisible} positions={["top"]} content={menu}>
       <div>
-        <StyledButton disabled={disabled} onClick={onClick}>
-          {icon && <FontAwesomeIcon height={32} icon={icon} className="mr-2" />}
-          {label}
+        <StyledButton disabled={disabled} onClick={onClick} title={label}>
+          {icon && <FontAwesomeIcon height={32} icon={icon} />}
         </StyledButton>
         {menuTrigger}
       </div>
