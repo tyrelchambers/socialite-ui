@@ -155,7 +155,7 @@ export const LiveControls = ({
       {videoButton}
       {screenButton}
       {isHost && (
-        <Buttons variant="danger" onClick={endStream}>
+        <Buttons rounded variant="danger" onClick={endStream}>
           End Stream
         </Buttons>
       )}

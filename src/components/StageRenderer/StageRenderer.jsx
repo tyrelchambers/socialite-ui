@@ -15,8 +15,6 @@ const StageRenderer = (stageProps) => {
     mainElement = <Desktop {...stageProps} />;
   }
 
-  console.log("StageRenderer", stageProps);
-
   return (
     <div>
       {mainElement}

@@ -1,8 +1,9 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { VideoQuality } from "livekit-client";
-import { ParticipantView, ScreenShareView } from "livekit-react";
+import { ScreenShareView } from "livekit-react";
 import { useState } from "react";
 import styled from "styled-components";
+import ParticipantView from "../ParticipantView/ParticipantView";
 const StyledGridContainer = styled.div`
   display: grid;
   grid-template-columns: 1fr 1fr 300px;
@@ -26,7 +27,18 @@ const Desktop = ({ roomState, controlRenderer, onLeave, adaptiveVideo }) => {
   const { isConnecting, room, error, participants } = roomState;
   const [showOverlay, setShowOverlay] = useState(false);
 
+  useEffect(() => {
+    const fn = async () => {
+      // get camera permission
+      if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
+        navigator.mediaDevices.getUserMedia({ video: true, audio: true });
+      }
+    };
+    fn();
+  }, []);
+
   if (error) {
+    console.log(error);
     return <div>error {error.message}</div>;
   }
 

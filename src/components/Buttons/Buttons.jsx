@@ -6,7 +6,7 @@ const StyledButton = styled.button`
   padding: 0.5em 1em;
   font-size: 0.875rem /* 14px */;
   line-height: 1.25rem /* 20px */;
-  border-radius: 0.375rem;
+  border-radius: ${(props) => (props.rounded ? "9999px" : "0.5rem")};
 `;
 
 export const StyledMainButton = styled(StyledButton)`
@@ -60,7 +60,7 @@ const secButton = ({ className, onClick, disabled, children, ...rest }) => (
 const danger = ({ className, onClick, disabled, children, ...rest }) => (
   <StyledDangerButton
     type="button"
-    className={`bg-red-400 ${className ?? ""}`}
+    className={`bg-red-400  ${className ?? ""}`}
     onClick={onClick}
     disabled={disabled}
     {...rest}
