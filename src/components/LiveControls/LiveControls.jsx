@@ -163,7 +163,6 @@ export const LiveControls = ({
           onClick={() => {
             endStream();
             room.disconnect();
-            console.log("called");
             videoPub.mute();
             audioPub.mute();
           }}

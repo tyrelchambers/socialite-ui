@@ -1,10 +1,11 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
-import { HOME } from "../../routes/index.routes";
+import { DASHBOARD, HOME } from "../../routes/index.routes";
 import Navbar from "../Navbar/Navbar";
 import socialiteLight from "../../assets/socialite - light.svg";
 import { useUser } from "../../hooks/useUser";
+import Avatar from "../../components/Avatar/Avatar";
 
 const StyledHeader = styled.header`
   background: var(--lighter-black);
@@ -20,10 +21,20 @@ const Header = () => {
       </Link>
       <div className="flex items-center">
         <Navbar user={userQuery.data} />
-        <p className="ml-4 border-l-2 border-gray-500 pl-4">
-          {userQuery.data &&
-            `${userQuery.data.firstName} ${userQuery.data.lastName}`}
-        </p>
+        <Link
+          to={DASHBOARD + "?tab=profile"}
+          className="ml-4 border-l-2 border-gray-500 pl-4 flex items-center"
+        >
+          <Avatar
+            size="sm"
+            src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1170&q=80"
+            className="mr-2"
+          />
+          <p>
+            {userQuery.data &&
+              `${userQuery.data.firstName} ${userQuery.data.lastName}`}
+          </p>
+        </Link>
       </div>
     </StyledHeader>
   );

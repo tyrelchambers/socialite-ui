@@ -49,12 +49,18 @@ const ParticipantView = ({
   onMouseLeave,
   onClick,
 }) => {
-  const { isLocal, isAudioMuted, subscribedTracks } =
+  const { isLocal, isAudioMuted, subscribedTracks, publications } =
     useParticipant(participant);
   const { ref, inView } = useInView();
   const [videoPub, setVideoPub] = useState();
   const [videoEnabled, setVideoEnabled] = useState(true);
   const [callbackTimeout, setCallbackTimeout] = useState();
+
+  useEffect(() => {
+    return () => {
+      setVideoPub(null);
+    };
+  }, []);
 
   useEffect(() => {
     let enabled = inView;

@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
-import { VideoQuality } from "livekit-client";
-import { ScreenShareView } from "livekit-react";
+import { Track, VideoQuality } from "livekit-client";
+import { ScreenShareView, useParticipant } from "livekit-react";
 import { useState } from "react";
 import styled from "styled-components";
 import ParticipantView from "../ParticipantView/ParticipantView";
@@ -24,7 +24,7 @@ const StyledGridParticipants = styled.div`
 `;
 
 const Desktop = ({ roomState, controlRenderer, onLeave, adaptiveVideo }) => {
-  const { isConnecting, room, error, participants } = roomState;
+  const { participants, isConnecting, room, error } = roomState;
   const [showOverlay, setShowOverlay] = useState(false);
 
   useEffect(() => {
@@ -35,11 +35,6 @@ const Desktop = ({ roomState, controlRenderer, onLeave, adaptiveVideo }) => {
       }
     };
     fn();
-
-    return () => {
-      console.log(room, "---------");
-      // room.disconnect();
-    };
   }, []);
 
   if (error) {

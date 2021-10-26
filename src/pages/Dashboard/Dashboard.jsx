@@ -5,7 +5,7 @@ import {
   faUser,
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import React from "react";
+import React, { useEffect } from "react";
 import { Link } from "react-router-dom";
 import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
 import NavItem from "../../components/NavItem/NavItem";
@@ -22,6 +22,11 @@ const Dashboard = () => {
   const { currentTab, setTab } = useGetCurrentTab(url.get("tab"));
   const userQuery = useUser();
   const history = useHistory();
+
+  useEffect(() => {
+    setTab(url.get("tab"));
+  }, [url]);
+
   if (userQuery.isSuccess && !userQuery.data) return null;
 
   const linkHandler = (tab) => {
