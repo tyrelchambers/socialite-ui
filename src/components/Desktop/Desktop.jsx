@@ -35,6 +35,11 @@ const Desktop = ({ roomState, controlRenderer, onLeave, adaptiveVideo }) => {
       }
     };
     fn();
+
+    return () => {
+      console.log(room, "---------");
+      // room.disconnect();
+    };
   }, []);
 
   if (error) {

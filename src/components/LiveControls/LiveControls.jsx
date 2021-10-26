@@ -160,20 +160,17 @@ export const LiveControls = ({
         <Buttons
           rounded
           variant="danger"
-          onClick={endStream}
+          onClick={() => {
+            endStream();
+            room.disconnect();
+            console.log("called");
+            videoPub.mute();
+            audioPub.mute();
+          }}
           title="End Stream"
         >
           <FontAwesomeIcon icon={faPhoneSlash} />
         </Buttons>
-      )}
-      {onLeave && (
-        <LiveControl
-          label="End"
-          onClick={() => {
-            room.disconnect();
-            onLeave(room);
-          }}
-        />
       )}
     </div>
   );
