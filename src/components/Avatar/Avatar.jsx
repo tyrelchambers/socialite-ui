@@ -17,11 +17,19 @@ const AvatarSm = styled(StyledAvatar)`
   height: 30px;
 `;
 
+const AvatarLg = styled(StyledAvatar)`
+  width: 100px;
+  height: 100px;
+`;
 const Avatar = ({ size = "reg", src, className }) => {
   const props = { size, src, className };
 
   if (size === "sm") {
     return <AvatarSm {...props} />;
+  }
+
+  if (size === "lg") {
+    return <AvatarLg {...props} />;
   }
 
   return <AvatarReg {...props} />;

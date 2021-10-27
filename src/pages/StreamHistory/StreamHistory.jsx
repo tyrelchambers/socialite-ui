@@ -7,18 +7,17 @@ import { useUser } from "../../hooks/useUser";
 import { getJoinToken } from "../../api/getJoinToken";
 import { useLiveRoom } from "../../hooks/useLiveRoom";
 
-const StreamHistory = () => {
+const StreamHistory = ({ user }) => {
   const { streamHistory } = useStreamHistory();
-  const userQuery = useUser();
   const history = useHistory();
   const { update } = useLiveRoom();
 
   const joinHandler = async (room) => {
     const accessToken = await getJoinToken({
       room: room.uuid,
-      participantName: `${userQuery.data.firstName} ${userQuery.data.lastName}`,
+      participantName: `${user.firstName} ${user.lastName}`,
       participantMetadata: {
-        participantId: userQuery.data.uuid,
+        participantId: user.uuid,
       },
     });
 
@@ -40,7 +39,7 @@ const StreamHistory = () => {
               key={room.roomId}
               room={room}
               joinHandler={() => joinHandler(room)}
-              user={userQuery.data}
+              user={user}
               menuToggle
             />
           ))}

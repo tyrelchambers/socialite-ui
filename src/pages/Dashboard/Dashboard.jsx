@@ -75,8 +75,10 @@ const Dashboard = () => {
           </aside>
           <section>
             {currentTab === "home" && <DashboardHome />}
-            {currentTab === "history" && <StreamHistory />}
-            {currentTab === "profile" && <Profile />}
+            {currentTab === "history" && (
+              <StreamHistory user={userQuery.data} />
+            )}
+            {currentTab === "profile" && <Profile user={userQuery.data} />}
           </section>
         </div>
       </Wrapper>
