@@ -1,20 +1,20 @@
-import React from "react";
-import { useGetCurrentTab } from "../../hooks/useGetCurrentTab";
+import Grid from "../../layouts/Grid/Grid";
 import Header from "../../layouts/Header/Header";
+import React from "react";
+import RoomListItem from "../../components/RoomListItem/RoomListItem";
 import Sidebar from "../../layouts/Sidebar/Sidebar";
 import Wrapper from "../../layouts/Wrapper/Wrapper";
-import { useRooms } from "../../hooks/useRooms";
-import RoomListItem from "../../components/RoomListItem/RoomListItem";
-import { useUser } from "../../hooks/useUser";
-import { useHistory } from "react-router";
 import { getJoinToken } from "../../api/getJoinToken";
-import Grid from "../../layouts/Grid/Grid";
+import { useGetCurrentTab } from "../../hooks/useGetCurrentTab";
+import { useNavigate } from "react-location";
+import { useRooms } from "../../hooks/useRooms";
+import { useUser } from "../../hooks/useUser";
 
 const Home = () => {
   const { currentTab } = useGetCurrentTab("for you");
   const roomsQuery = useRooms();
   const userQuery = useUser();
-  const history = useHistory();
+  const navigate = useNavigate();
 
   const joinHandler = async (room) => {
     const accessToken = await getJoinToken({
@@ -25,7 +25,7 @@ const Home = () => {
       },
     });
 
-    history.push(`/live/${room.roomId}?token=${accessToken}`);
+    navigate(`/live/${room.roomId}?token=${accessToken}`);
   };
 
   return (

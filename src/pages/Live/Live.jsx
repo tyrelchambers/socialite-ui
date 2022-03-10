@@ -1,33 +1,34 @@
-import React, { useEffect } from "react";
-import Header from "../../layouts/Header/Header";
-import { LiveKitRoom } from "livekit-react";
-import { onConnected } from "../../utils/onConnected";
-import Wrapper from "../../layouts/Wrapper/Wrapper";
-import { LiveControls } from "../../components/LiveControls/LiveControls";
 import "livekit-react/dist/index.css";
-import { fullName } from "../../utils/fullName";
-import config from "../../config/config";
-import { useParams } from "react-router";
-import { useLiveRoom } from "../../hooks/useLiveRoom";
+
+import React, { useEffect } from "react";
+import { useNavigate, useSearch } from "react-location";
+
 import Block from "../../layouts/Block/Block";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faShare } from "@fortawesome/free-solid-svg-icons";
-import Participants from "../../components/Participants/Participants";
 import Buttons from "../../components/Buttons/Buttons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import Header from "../../layouts/Header/Header";
+import { LiveControls } from "../../components/LiveControls/LiveControls";
+import { LiveKitRoom } from "livekit-react";
+import Participants from "../../components/Participants/Participants";
+import StageRenderer from "../../components/StageRenderer/StageRenderer";
+import Wrapper from "../../layouts/Wrapper/Wrapper";
+import config from "../../config/config";
+import { faShare } from "@fortawesome/free-solid-svg-icons";
+import { fullName } from "../../utils/fullName";
+import { onConnected } from "../../utils/onConnected";
+import { useLiveRoom } from "../../hooks/useLiveRoom";
 import { useQueryClient } from "react-query";
 import { useUser } from "../../hooks/useUser";
-import StageRenderer from "../../components/StageRenderer/StageRenderer";
-import { useHistory } from "react-router-dom";
 
 const Live = ({ location }) => {
   const url = config[process.env.NODE_ENV].streamServer;
   const params = new URLSearchParams(location.search);
   const token = params.get("token");
-  const { sid } = useParams();
+  const { sid } = useSearch();
   const { query: roomQuery, update } = useLiveRoom(sid);
   const queryClient = useQueryClient();
   const userQuery = useUser();
-  const history = useHistory();
+  const navigate = useNavigate();
 
   useEffect(() => {
     return () => {
@@ -39,7 +40,7 @@ const Live = ({ location }) => {
 
   const updateHandler = async (room) => {
     await update.mutateAsync({ uuid: room.uuid, isFinished: true });
-    history.push("/");
+    navigate("/");
   };
 
   return (

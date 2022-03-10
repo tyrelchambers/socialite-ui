@@ -1,27 +1,27 @@
+import { Link, useNavigate } from "react-location";
+import React, { useEffect } from "react";
 import {
   faCircle,
   faHistory,
   faHome,
   faUser,
 } from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import React, { useEffect } from "react";
-import { Link } from "react-router-dom";
-import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
-import NavItem from "../../components/NavItem/NavItem";
-import { useGetCurrentTab } from "../../hooks/useGetCurrentTab";
-import { useUser } from "../../hooks/useUser";
-import Header from "../../layouts/Header/Header";
-import Wrapper from "../../layouts/Wrapper/Wrapper";
+
 import DashboardHome from "../DashboardHome/DashboardHome";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import Header from "../../layouts/Header/Header";
+import NavItem from "../../components/NavItem/NavItem";
 import Profile from "../Profile/Profile";
 import StreamHistory from "../StreamHistory/StreamHistory";
+import Wrapper from "../../layouts/Wrapper/Wrapper";
+import { useGetCurrentTab } from "../../hooks/useGetCurrentTab";
+import { useUser } from "../../hooks/useUser";
 
 const Dashboard = () => {
   const url = new URLSearchParams(useHistory().location.search);
   const { currentTab, setTab } = useGetCurrentTab(url.get("tab"));
   const userQuery = useUser();
-  const history = useHistory();
+  const navigate = useNavigate();
 
   useEffect(() => {
     setTab(url.get("tab"));
@@ -31,7 +31,7 @@ const Dashboard = () => {
 
   const linkHandler = (tab) => {
     setTab(tab);
-    history.push(`/dashboard?tab=${tab}`);
+    navigate(`/dashboard?tab=${tab}`);
   };
 
   return (

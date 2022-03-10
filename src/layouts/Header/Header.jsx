@@ -1,11 +1,12 @@
-import React from "react";
-import { Link } from "react-router-dom";
-import styled from "styled-components";
 import { DASHBOARD, HOME } from "../../routes/index.routes";
-import Navbar from "../Navbar/Navbar";
-import socialiteLight from "../../assets/socialite - light.svg";
-import { useUser } from "../../hooks/useUser";
+
 import Avatar from "../../components/Avatar/Avatar";
+import { Link } from "react-location";
+import Navbar from "../Navbar/Navbar";
+import React from "react";
+import socialiteLight from "../../assets/socialite - light.svg";
+import styled from "styled-components";
+import { useUser } from "../../hooks/useUser";
 
 const StyledHeader = styled.header`
   background: var(--lighter-black);

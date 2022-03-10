@@ -1,13 +1,13 @@
-import { useMutation } from "react-query";
-import { useHistory } from "react-router";
 import { login } from "../api/login";
+import { useMutation } from "react-query";
+import { useNavigate } from "react-location";
 
 export const useLogin = () => {
-  const history = useHistory();
+  const navigate = useNavigate();
   const mutate = useMutation((data) => login(data), {
     onSuccess: (res) => {
       window.localStorage.setItem("token", res.token);
-      history.push("/dashboard");
+      navigate("/dashboard");
     },
   });
 

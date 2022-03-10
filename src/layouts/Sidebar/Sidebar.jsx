@@ -3,9 +3,10 @@ import {
   faList,
   faUserFriends,
 } from "@fortawesome/free-solid-svg-icons";
-import React from "react";
-import { Link } from "react-router-dom";
+
+import { Link } from "react-location";
 import NavItem from "../../components/NavItem/NavItem";
+import React from "react";
 import { useGetCurrentTab } from "../../hooks/useGetCurrentTab";
 
 const Sidebar = () => {

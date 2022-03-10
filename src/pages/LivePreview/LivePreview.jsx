@@ -1,21 +1,22 @@
-import { faCog, faTable } from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React, { useState } from "react";
-import { useHistory } from "react-router";
-import { createRoom } from "../../api/createRoom";
+import { faCog, faTable } from "@fortawesome/free-solid-svg-icons";
+
 import Buttons from "../../components/Buttons/Buttons";
-import Input from "../../components/Input/Input";
-import LiveSettings from "../../components/LiveSettings/LiveSettings";
-import { useModal } from "../../hooks/useModal";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Header from "../../layouts/Header/Header";
-import Wrapper from "../../layouts/Wrapper/Wrapper";
-import Webcam from "react-webcam";
-import Modal from "../../layouts/Modal/Modal";
-import { getAccessToken } from "../../api/getAccessToken";
-import { useUser } from "../../hooks/useUser";
+import Input from "../../components/Input/Input";
 import InputWrapper from "../../components/InputWrapper/InputWrapper";
-import { useTags } from "../../hooks/useTags";
+import LiveSettings from "../../components/LiveSettings/LiveSettings";
+import Modal from "../../layouts/Modal/Modal";
 import Select from "../../components/Select/Select";
+import Webcam from "react-webcam";
+import Wrapper from "../../layouts/Wrapper/Wrapper";
+import { createRoom } from "../../api/createRoom";
+import { getAccessToken } from "../../api/getAccessToken";
+import { useModal } from "../../hooks/useModal";
+import { useNavigate } from "react-location";
+import { useTags } from "../../hooks/useTags";
+import { useUser } from "../../hooks/useUser";
 
 const LivePreview = () => {
   const { isOpen, setIsOpen, config, setOpts } = useModal();
@@ -24,7 +25,7 @@ const LivePreview = () => {
     tags: [],
   });
   const tagsQuery = useTags();
-  const history = useHistory();
+  const navigate = useNavigate();
   const userQuery = useUser();
 
   const createRoomHandler = async () => {
@@ -42,7 +43,7 @@ const LivePreview = () => {
     });
     console.log(aToken);
 
-    history.push(`/live/${room.roomId}?token=${aToken}`);
+    navigate(`/live/${room.roomId}?token=${aToken}`);
   };
 
   const formattedTags =

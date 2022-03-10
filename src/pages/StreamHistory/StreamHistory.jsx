@@ -1,15 +1,15 @@
-import React from "react";
-import { useStreamHistory } from "../../hooks/useStreamHistory";
 import Grid from "../../layouts/Grid/Grid";
+import React from "react";
 import RoomListItem from "../../components/RoomListItem/RoomListItem";
-import { useHistory } from "react-router";
-import { useUser } from "../../hooks/useUser";
 import { getJoinToken } from "../../api/getJoinToken";
 import { useLiveRoom } from "../../hooks/useLiveRoom";
+import { useNavigate } from "react-location";
+import { useStreamHistory } from "../../hooks/useStreamHistory";
+import { useUser } from "../../hooks/useUser";
 
 const StreamHistory = ({ user }) => {
   const { streamHistory } = useStreamHistory();
-  const history = useHistory();
+  const navigate = useNavigate();
   const { update } = useLiveRoom();
 
   const joinHandler = async (room) => {

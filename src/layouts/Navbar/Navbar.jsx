@@ -1,8 +1,3 @@
-import { faSmileBeam } from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import React from "react";
-import { Link } from "react-router-dom";
-import { StyledMainButton } from "../../components/Buttons/Buttons";
 import {
   DASHBOARD,
   HOME,
@@ -10,6 +5,12 @@ import {
   SIGNOUT,
   SIGNUP,
 } from "../../routes/index.routes";
+
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { Link } from "react-location";
+import React from "react";
+import { StyledMainButton } from "../../components/Buttons/Buttons";
+import { faSmileBeam } from "@fortawesome/free-solid-svg-icons";
 
 const Navbar = ({ user }) => {
   return (
